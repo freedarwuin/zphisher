@@ -195,9 +195,9 @@ check_update(){
 
 ## Check Internet Status
 check_status() {
-	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Internet Status : "
+	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Estado de Internet: "
 	timeout 3s curl -fIs "https://api.github.com" > /dev/null
-	[ $? -eq 0 ] && echo -e "${GREEN}Online${WHITE}" && check_update || echo -e "${RED}Offline${WHITE}"
+	[ $? -eq 0 ] && echo -e "${GREEN}en línea${WHITE}" && check_update || echo -e "${RED}Desconectado${WHITE}"
 }
 
 ## Banner
@@ -213,7 +213,7 @@ banner() {
 		${ORANGE}      | |                                
 		${ORANGE}      |_|                ${RED}Version : ${__version__}
 
-		${GREEN}[${WHITE}-${GREEN}]${CYAN} Tool Created by htr-tech (tahmid.rayat)${WHITE}
+		${GREEN}[${WHITE}-${GREEN}]${CYAN} Herramienta creada por freedarwuin (tahmid.rayat)${WHITE}
 	EOF
 }
 
