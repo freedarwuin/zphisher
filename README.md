@@ -135,7 +135,7 @@ $ zphisher
 
 ### Run on Docker
 
-- Docker Image Mirror:
+- Docker Image Mirror: 
   - **DockerHub** : 
     ```
     docker pull htrtech/zphisher
