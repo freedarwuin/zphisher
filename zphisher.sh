@@ -189,7 +189,7 @@ check_update(){
 			{ reset_color; exit 1; }
 		fi
 	else
-		echo -ne "${GREEN}A hoy\n${WHITE}" ; sleep .5
+		echo -ne "${GREEN}hoy\n${WHITE}" ; sleep .5
 	fi
 }
 
