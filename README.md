@@ -1,35 +1,3 @@
-<!-- Message -->
-  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fhtr-tech%2Fhelp&title=Visitors&edge_flat=false"/></a>
-
-
-**Help Bangladeshi Students 🙏**
-
-Bangladesh is currently facing significant internal unrest. The government, in collaboration with the Student League and police forces, is preparing to attack general students who are protesting against the discriminatory quota system in government jobs and sectors. We urgently need international media attention to shed light on our situation.
-
------
-**Update:**
-
-The situation has worsened. 500+ students (even children) were martyred. 10000+ students are in jail just because asking for their rights. **Our Local Media is just being a puppet & brodcasting false news.** 
-
-**Proof of Violence**: https://t.me/BringingJusticetoYouBangladesh
-
-Now they are trying to stop us from letting the world know about current situation. They are checking phones everywhere to emit the proofs of violence. **Where's our human rights?** 
-
-They want to suppress us by arresting the coordinators of the movement and collecting false bonds from them as hostages. They are silencing everyone
-
-------
-
-Please focus on the plight of Bangladeshi students.
-
-Since people from almost all parts of the world are here, I want to spread this message to everyone.
-
-![image](https://github.com/user-attachments/assets/a568a1a3-c1a6-489f-bfef-a285b42436a4)
-
-Regards,
-
-**A Student**
-<!-- // -->
------
 <!-- Zphisher -->
 
 <p align="center">
@@ -90,8 +58,8 @@ It only demonstrates "how phishing works". <b>You shall not misuse the informati
 
 - Now go to cloned directory and run `zphisher.sh` -
   ```
-  $ cd zphisher
-  $ bash zphisher.sh
+  cd zphisher
+  bash zphisher.sh
   ```
 
 - On first launch, It'll install the dependencies and that's it. ***Zphisher*** is installed.
@@ -101,9 +69,9 @@ It only demonstrates "how phishing works". <b>You shall not misuse the informati
 ### Installation (Termux)
 You can easily install zphisher in Termux by using tur-repo
 ```
-$ pkg install tur-repo
-$ pkg install zphisher
-$ zphisher
+pkg install tur-repo
+pkg install zphisher
+zphisher
 ```
 ### A Note : 
 ***Termux discourages hacking*** .. So never discuss anything related to *zphisher* in any of the termux discussion groups. For more check : [wiki](https://wiki.termux.com/wiki/Hacking)
@@ -127,8 +95,8 @@ $ zphisher
   ```
   Or
   ```
-  $ dpkg -i <your path to deb file>
-  $ apt install -f
+  dpkg -i <your path to deb file>
+  apt install -f
   ```
 
 ##
@@ -148,8 +116,8 @@ $ zphisher
 - By using the wrapper script [**run-docker.sh**](https://raw.githubusercontent.com/htr-tech/zphisher/master/run-docker.sh)
 
   ```
-  $ curl -LO https://raw.githubusercontent.com/htr-tech/zphisher/master/run-docker.sh
-  $ bash run-docker.sh
+  curl -LO https://raw.githubusercontent.com/htr-tech/zphisher/master/run-docker.sh
+  bash run-docker.sh
   ```
 - Temporary Container
 
